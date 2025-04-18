@@ -256,7 +256,7 @@ setInterval(() => {
 
 setInterval(async () => {
   await Alpine.store('iframe').updateUrl();
-}, MINUTE);
+}, MINUTE * 10);
 
 
 window.Alpine = Alpine;
