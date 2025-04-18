@@ -68,10 +68,16 @@ function toPlainTime(time12hr) {
 }
 
 async function fetchData(file) {
-  const response = await fetch(`/data/${file}.json`);
-  const json = await response.json();
+  const response = await fetch(`${import.meta.env.BASE_URL}data/${file}.json`);
+  const text = await response.text();
+  console.log("Raw response:", text);
 
-  return json;
+  try {
+    return JSON.parse(text);
+  } catch (e) {
+    console.error("Failed to parse JSON:", e);
+    throw e;
+  }
 }
 
 const data = await fetchData('2025');
@@ -225,8 +231,6 @@ Alpine.store('iframe', {
       this.url = this.ALT_URL;
       this.error = true;
     }
-
-    this.error = true;
   },
 
   getUrl() {
