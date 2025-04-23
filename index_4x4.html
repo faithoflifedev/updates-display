@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="SKC Information" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SKC Information</title>
+
+  <link href="/src/styles.css" rel="stylesheet">
+  <script type="module" src="/src/main.js" defer></script>
+</head>
+
+<body>
+  <main class="grid grid-cols-[5fr_1fr] grid-rows-[5fr_1fr] h-screen w-screen divide-x-2 divide-y-2" x-data>
+    <div class="relative w-full h-full">
+      <template x-if="$store.iframe.getError() === false">
+        <div>
+          <iframe frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"
+            class="w-full h-[80vh]" :src="$store.iframe.getUrl()"></iframe>
+
+          <div class="absolute top-0 left-0 z-10 w-full h-9 bg-black text-white">
+            <br />
+          </div>
+
+          <div class="absolute bottom-0 left-0 z-10 w-full h-16 2xl:h-20 bg-black text-white">
+            <br />
+          </div>
+        </div>
+      </template>
+      <template x-if="$store.iframe.getError() === true">
+        <div>
+          <section class="w-full h-[80vh] py-3 text-center">
+            <br />
+            <br />
+            <h3 class="text-9xl">Next Iqama In:</h3>
+            <br />
+            <h2 class="text-8xl" x-text="$store.core.getIqamaTime()">Iqama</h2>
+          </section>
+
+          <div class="absolute top-0 left-0 z-10 w-full h-9 bg-black text-white">
+            <br />
+          </div>
+
+          <div class="absolute bottom-0 left-0 z-10 w-full h-16 bg-black text-white">
+            <br />
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <div class="bg-stone-100">
+      <section class="py-3 text-center">
+        <h3 class="text-3xl 2xl:text-6xl" x-text="$store.core.getIslamicDate()">islamicDate</h3>
+        <h3 class="text-3xl 2xl:text-6xl" x-date="$store.core.getLocalDate()">localDate</h3>
+      </section>
+
+      <hr class="w-3/4 h-0.5 rounded-full border-0 mx-auto bg-black" />
+
+      <section class="py-3 text-center">
+        <h2 class="text-4xl 2xl:text-7xl" x-time="$store.core.getLocalTime()">localTime</h2>
+      </section>
+
+      <hr class="w-3/4 h-0.5 rounded-full border-0 mx-auto bg-black" />
+
+      <section class="py-3 text-center">
+        <h3 class="text-3xl 2xl:text-6xl">Iqama:</h3>
+        <h2 class="text-4xl 2xl:text-7xl" x-text="$store.core.getIqamaTime()">Iqama</h2>
+      </section>
+
+      <hr class="w-3/4 h-0.5 rounded-full border-0 mx-auto bg-black" />
+
+      <section class="py-3 bg-slate-500 rounded-3xl m-4 text-center">
+        <h3 class="text-3xl 2xl:text-6xl text-stone-100">Jumuah:</h3>
+
+        <ul>
+          <template x-for="jumuah in $store.core.getJumuahTimes()">
+            <li class="p-2" :class="jumuah.shortest? 'text-amber-400 border-b-8' : 'text-stone-100'">
+              <br />
+              <h4 class="text-2xl 2xl:text-5xl" x-text="jumuah.prayer">prayer</h4>
+              <h5 class="text-xl 2xl:text-4xl" x-time="jumuah.time">time</h5>
+            </li>
+          </template>
+        </ul>
+        <br />
+      </section>
+    </div>
+
+    <div>
+      <ul class="pt-3 flex flex-row h-full justify-evenly bg-slate-500">
+        <li class="px-2 text-center text-stone-100">
+          <h3 class="text-3xl 2xl:text-6xl">Time:</h3>
+          <h5 class="text-xl 2xl:text-4xl">Prayer:</h5>
+          <h4 class="text-2xl 2xl:text-5xl">Iqama:</h4>
+        </li>
+        <template x-for="salaat in $store.core.getSalaatTimes()">
+          <li class="px-2 text-center" :class="salaat.shortest? 'text-amber-400 border-b-8' : 'text-stone-100'">
+            <h3 class="text-3xl 2xl:text-6xl" x-time="salaat.time">time</h3>
+            <h5 class="text-xl 2xl:text-4xl" x-text="salaat.prayer">prayer</h5>
+            <h4 class="text-2xl 2xl:text-5xl" x-time="salaat.iqama">iqama</h4>
+          </li>
+        </template>
+      </ul>
+    </div>
+
+    <div>
+      <ul class="flex flex-row justify-evenly items-center h-full bg-slate-500 text-stone-100 pt-3"
+        x-data="{sun: $store.core.getSunTimes()}">
+        <li class="flex flex-col px-2 text-center aspect-square">
+          <img src="sunrise.svg" alt="sunrise icon" style="filter: invert(0.9);" class="h-1/4" />
+          <h4 class="text-2xl 2xl:text-5xl" x-text="sun[0].event">event</h4>
+          <h5 class="text-2xl 2xl:text-5xl" x-time="sun[0].time">time</h5>
+        </li>
+        <li class="flex flex-col px-2 text-center aspect-square">
+          <img src="sunset.svg" alt="sunset icon" style="filter: invert(0.9);" class="h-1/4" />
+          <h4 class="text-2xl 2xl:text-5xl" x-text="sun[1].event">event</h4>
+          <h5 class="text-2xl 2xl:text-5xl" x-time="sun[1].time">time</h5>
+        </li>
+      </ul>
+    </div>
+  </main>
+</body>
+
+</html>
