@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Exec=/home/$(whoami)/updates-display/startup.sh
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name=Open Browser Fullscreen
+Comment=Opens the updates display in full screen
