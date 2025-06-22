@@ -1,7 +1,14 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'NotoNaskhArabic';
+  src: url('fonts/NotoNaskhArabic-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'NotoNaskhArabic', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 

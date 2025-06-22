@@ -103,11 +103,11 @@ Alpine.store('core', {
     const salaats = this.salaats.at(this.currentDate.dayOfYear - 1);
 
     const events = [
-      { prayer: 'Fajr', time: toPlainTime(salaats[1]), iqama: toPlainTime(salaats[2]), duration: null, shortest: false },
-      { prayer: 'Dhuhr', time: toPlainTime(salaats[4]), iqama: toPlainTime(salaats[5]), duration: null, shortest: false },
-      { prayer: 'Asr', time: toPlainTime(salaats[6]), iqama: toPlainTime(salaats[7]), duration: null, shortest: false },
-      { prayer: 'Maghrib', time: toPlainTime(salaats[8]), iqama: toPlainTime(salaats[9]), duration: null, shortest: false },
-      { prayer: 'Isha', time: toPlainTime(salaats[10]), iqama: toPlainTime(salaats[11]), duration: null, shortest: false },
+      { prayer: 'الفجر (Fajr)', time: toPlainTime(salaats[1]), iqama: toPlainTime(salaats[2]), duration: null, shortest: false },
+      { prayer: 'الظهر (Dhuhr)', time: toPlainTime(salaats[4]), iqama: toPlainTime(salaats[5]), duration: null, shortest: false },
+      { prayer: 'العصر (Asr)', time: toPlainTime(salaats[6]), iqama: toPlainTime(salaats[7]), duration: null, shortest: false },
+      { prayer: 'المغرب (Maghrib)', time: toPlainTime(salaats[8]), iqama: toPlainTime(salaats[9]), duration: null, shortest: false },
+      { prayer: 'العشاء (Isha)', time: toPlainTime(salaats[10]), iqama: toPlainTime(salaats[11]), duration: null, shortest: false },
     ].map(event => ({
       ...event,
       duration: this.currentTime.until(event.time, { smallestUnit: 'seconds' })
